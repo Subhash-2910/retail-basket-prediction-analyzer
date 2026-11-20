@@ -10,3 +10,10 @@ __pycache__/
 # Local data
 data/
 *.db
+
+# Trained weights (rebuild with `python -m app.cli train`)
+models/
+.DS_Store
+
+# Large per-prediction ranks (rebuild with `python -m app.cli evaluate`)
+results/rank_lists.json

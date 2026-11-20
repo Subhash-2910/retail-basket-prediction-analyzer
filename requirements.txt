@@ -1,5 +1,9 @@
+# CPU-only PyTorch (small download, no GPU needed). The extra index is only used for torch.
+--extra-index-url https://download.pytorch.org/whl/cpu
 httpx
 pytest
 thilimarketbasket @ git+https://github.com/thili-ai/thilimarketbasket.git
 numpy
 pandas
+torch
+matplotlib
