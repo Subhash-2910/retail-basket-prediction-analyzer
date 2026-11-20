@@ -1,6 +1,6 @@
 # Retail Basket Prediction Analyzer
 
-[![Built with askThili](https://ask.thili.ai/api/v1/public/projects/cwp76fetft/badge.svg)](https://ask.thili.ai/b/cwp76fetft)
+[![Built with askThili](https://msrit.ask.thili.ai/api/v1/public/projects/cwp76fetft/badge.svg)](https://msrit.ask.thili.ai/b/cwp76fetft)
 [![tests](https://github.com/Subhash-2910/retail-basket-prediction-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/Subhash-2910/retail-basket-prediction-analyzer/actions/workflows/ci.yml)
 
 A command-line tool for retail analysts. It compares how well two models predict **the next item a shopper puts in
