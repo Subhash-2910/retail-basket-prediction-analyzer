@@ -5,6 +5,7 @@
     evaluate  -> results/metrics.json  n-gram (orders 1-4) vs the LM         (milestones 2 and 4)
     compare   -> results/report.md + charts                                   (milestone 5)
     all       -> every step above, in order
+    info      -> which of the above already exist
     predict   -> next-item guesses from both models for a basket you type
 """
 import argparse
@@ -161,6 +162,16 @@ def cmd_predict(args):
             print(f"  {item}")
 
 
+def cmd_info(args):
+    """What exists so far, and the next command to run."""
+    steps = [("dataset", Path(args.data) / "baskets.jsonl", "generate"),
+             ("small LM", Path(args.model), "train"),
+             ("metrics", Path(args.results) / "metrics.json", "evaluate"),
+             ("report", Path(args.results) / "report.md", "compare")]
+    for name, path, command in steps:
+        print(f"{name:<9} {'ready  ' + str(path) if path.exists() else 'missing: run `python -m app.cli ' + command + '`'}")
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="retail-basket-prediction-analyzer", description="Retail analysts use this to compare next-item prediction accuracy between an n-gram model and a small LM, both trained on simulated shopping baskets data.")
     parser.add_argument("--data", default="data", help="dataset folder")
@@ -168,7 +179,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--results", default="results", help="where metrics and the report go")
     parser.add_argument("--seed", type=int, default=0)
     sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("hello", help="check that everything is wired up")
+    sub.add_parser("info", help="show what data, model and results exist so far")
     g = sub.add_parser("generate", help="milestone 1: simulate baskets with planted itemsets")
     g.add_argument("--n-baskets", type=int, default=30_000)
     t = sub.add_parser("train", help="milestone 3: pretrain the small LM")
@@ -186,8 +197,8 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("items", help='comma-separated item names, e.g. "Crunchy Crust Bread 400 g"')
     args = parser.parse_args(argv)
 
-    if args.command == "hello":
-        print("Retail Basket Prediction Analyzer is ready. Open README.md for your milestones.")
+    if args.command == "info":
+        cmd_info(args)
     elif args.command == "all":
         for step in (cmd_generate, cmd_train, cmd_evaluate, cmd_compare):
             step(args)
